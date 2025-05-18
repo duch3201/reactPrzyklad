@@ -1,0 +1,146 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f7fd;
+  color: #333;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.layout {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.left-panel {
+  width: 50%;
+  background: #fff3e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem;
+  box-shadow: inset -5px 0 10px rgba(0,0,0,0.05);
+}
+
+.right-panel {
+  width: 50%;
+  background: #e0f7fa;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.explanation {
+  background: #ffe0b2;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+.code {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 10px;
+  font-family: monospace;
+  font-size: 0.9rem;
+  overflow-x: auto;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+.example {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+input[type=\"text\"] {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid #00acc1;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+input[type=\"text\"]:focus {
+  border-color: #00838f;
+  background: #e0f2f1;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #ff9800;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #f57c00;
+}
+
+.big-btn {
+  font-size: 1.4rem;
+  padding: 1rem 2rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 300px;
+}
+
+li {
+  background: #ffffffcc;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  border-left: 5px solid #00acc1;
+  border-radius: 5px;
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background: #ffb74d;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav.left {
+  left: 10px;
+}
+
+.nav.right {
+  right: 10px;
+}
+
+.nav:hover {
+  background: #fb8c00;
+}
