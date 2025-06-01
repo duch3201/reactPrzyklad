@@ -4,6 +4,7 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const fs = require('fs').promises;
 const path = require('path');
+const { dataQuery } = require('../utils/dataQuery');
 
 require('dotenv').config();
 
@@ -18,13 +19,13 @@ async function connectRedis() {
     redisClient.on('error', (err) => console.log('Redis Client Error', err));
     await redisClient.connect();
 }
-
+const jsonData = {}
 // Configure CORS
 const corsOptions = {
-  origin: '*', // Replace with your React app's origin
+  origin: '*',  
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true, // Allow cookies, authorization headers, etc.
-  optionsSuccessStatus: 204, // Some legacy browsers choke on 204
+  credentials: true,
+  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
@@ -32,7 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 100,
+    max: 1000,
     standardHeaders: true,
     legacyHeaders: false, 
     
@@ -40,7 +41,76 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'UP' });
+  return res.status(200).json({ status: 'UP' });
+});
+
+app.get('/courses', async (req, res) => {
+  try {
+    const courses = await dataQuery.getAllCourses();
+    return res.json(courses);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch courses' });
+  }
+});
+
+app.get('/courses/:courseId', async (req, res) => {
+  try {
+    const course = await dataQuery.getCourse(req.params.courseId);
+    if (!course) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+    if (req.query.metadataonly) {
+      // console.log(slide)
+      const newCourse = {
+        courseId: course.courseId,
+        title: course.title,
+        description: course.description,
+        tags: course.tags,
+        slides:[]
+      }
+
+      console.log(newCourse)
+
+      course.slides.forEach(slide => {
+        const newSlide = {
+          id:slide.id,
+          title:slide.title,
+          doesContainComponent:slide.doesContainComponent,
+          isTextAndCodeOnlySlide:slide.isTextAndCodeOnlySlide
+        }
+        newCourse['slides'].push(newSlide)
+      });
+
+      return res.json(newCourse)
+    }
+    return res.json(course);
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error: 'Failed to fetch course' });
+  }
+});
+
+app.get('/courses/:courseId/slides/:slideId', async (req, res) => {
+  try {
+    const slide = await dataQuery.getSlide(req.params.courseId, req.params.slideId);
+    if (!slide) {
+      return res.status(404).json({ error: 'Slide not found' });
+    }
+    if (req.query.metadataonly) {
+      // console.log(slide)
+      const newSlide = {
+        id: slide.id,
+        title: slide.title,
+        doesContainComponent: slide.doesContainComponent,
+        isTextAndCodeOnlySlide: slide.isTextAndCodeOnlySlide
+      }
+
+      return res.json(newSlide)
+    }
+    return res.json(slide);
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to fetch slide' });
+  }
 });
 
 // Get slide by index
@@ -75,10 +145,10 @@ app.get('/getSlide/:id', async (req, res) => {
       EX: 3600,
     });
 
-    res.json(slide);
+    return res.json(slide);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -100,36 +170,42 @@ app.get('/getSlide/count', async (req, res) => {
       EX: 3600,
     });
 
-    res.json({ count });
+    return res.json({ count });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 async function startServer() {
-    try {
-        await connectRedis();
-        console.log('Connected to Redis');
-        
-        app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
-        });
-    } catch (error) {
-        console.error('Failed to start server:', error);
-        process.exit(1);
-    }
+  try {
+    // Use DataQuery to load all data
+    await dataQuery.loadData();
+    
+    // Store in global jsonData variable for backward compatibility
+    Object.assign(jsonData, await dataQuery.getAllData());
+
+    await connectRedis();
+    console.log('Connected to Redis');
+    
+    app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
 }
 
 startServer();
 
 // Handle graceful shutdown
 process.on('SIGINT', async () => {
-    if (redisClient) {
-        await redisClient.quit();
-    }
-    console.log('Server shutting down');
-    process.exit(0);
+  if (redisClient) {
+    await redisClient.quit();
+  }
+  console.log('Server shutting down');
+  process.exit(0);
 });
 
 module.exports = app;

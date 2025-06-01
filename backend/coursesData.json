@@ -1,0 +1,9 @@
+{
+    "1":{
+        "courseId": "react-stage-1",
+        "title": "React hooki",
+        "description": "Kompleksowy kurs React hooks obejmujący najważniejsze hooki",
+        "tags": ["React"],
+        "slideData":"1_slideData.json"
+    }
+}
