@@ -1,0 +1,139 @@
+#CourseBox {
+    max-width: 313px;
+    min-width: 313px;
+    margin: 0;
+    border: 3px solid var(--primary);
+    border-radius: 8px;
+    padding: 15px;
+    background-color: var(--background);
+    box-shadow: var(--shadow-brutal);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+#CourseBox::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s;
+}
+
+#CourseBox:hover {
+    transform: translateX(-2px) translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--secondary);
+}
+
+#CourseBox:hover::before {
+    left: 100%;
+}
+
+#CourseBox h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+}
+
+#CourseBox:hover h3 {
+    color: var(--primary);
+}
+
+#CourseBox p {
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+#CourseBox button {
+    background-color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 6px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-button);
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+#CourseBox button p {
+    margin: 0px !important;
+}
+
+#CourseBox button:hover {
+    transform: translateX(-2px) translateY(-2px);
+    box-shadow: 4px 4px 0px var(--background);
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+}
+
+#CourseBox button:active {
+    transform: translateX(0) translateY(0);
+    box-shadow: 2px 2px 0px var(--background);
+}
+
+#lowerCourseBox {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+#lowerCourseBox div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#tagslist {
+    flex: 1;
+}
+
+#tagslist p {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--secondary);
+    margin: 3px 6px 3px 0;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border: 2px solid var(--secondary);
+    transition: var(--transition);
+    animation: fadeInUp 0.3s ease-out forwards;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+#tagslist p:nth-child(1) { animation-delay: 0.1s; }
+#tagslist p:nth-child(2) { animation-delay: 0.2s; }
+#tagslist p:nth-child(3) { animation-delay: 0.3s; }
+
+#tagslist p:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+button p {
+    font-weight: bold;
+    font-size: medium;
+    color: var(--background);
+    margin: 0;
+}
