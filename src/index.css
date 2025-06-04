@@ -7,8 +7,18 @@
     --primary: #F2613F;
     --secondary: #481E14;
     --accent: #9B3922;
-}
 
+    --Dtext: #1a1414;
+    --Dbackground: #f2f2f2;
+    --Dprimary: #bf2e0d;
+    --Dsecondary: #ebc1b7;
+    --Daccent: #dd7a64;
+
+    --shadow-brutal: 4px 4px 0px var(--primary);
+    --shadow-hover: 6px 6px 0px var(--primary);
+    --shadow-button: 3px 3px 0px var(--background);
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
 * {
     padding: 0;
     margin: 0;

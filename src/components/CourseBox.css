@@ -3,10 +3,9 @@
     min-width: 313px;
     margin: 0;
     border: 3px solid var(--primary);
-    border-radius: 8px;
+    border-radius: 0 20px 0 8px;
     padding: 15px;
     background-color: var(--background);
-    box-shadow: var(--shadow-brutal);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
@@ -26,6 +25,7 @@
 #CourseBox:hover {
     transform: translateX(-2px) translateY(-2px);
     box-shadow: var(--shadow-hover);
+    box-shadow: var(--shadow-brutal);
     border-color: var(--secondary);
 }
 
@@ -135,9 +135,9 @@
     }
 }
 
-a {
+#lowerCourseBox a {
     font-weight: bold;
     font-size: medium;
-    color: var(--background);
+    color: var(--text);
     margin: 0;
 }

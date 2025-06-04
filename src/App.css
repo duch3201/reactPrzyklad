@@ -1,9 +1,4 @@
-:root {
-    --shadow-brutal: 4px 4px 0px var(--primary);
-    --shadow-hover: 6px 6px 0px var(--primary);
-    --shadow-button: 3px 3px 0px var(--background);
-    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
+
 
 #heading {
     font-size: xxx-large !important;
@@ -44,4 +39,32 @@
 @keyframes slideIn {
     from { width: 0; }
     to { width: 100px; }
+}
+
+
+.under-construction-alt {
+    position: absolute;
+    right: 40px;
+    top: 15px;
+    background: var(--primary);
+    color: var(--text);
+    border: 3px solid #1a1a1a;
+    border-radius: 15px 0 20px 5px;
+    padding: 18px;
+    max-width: 350px;
+    margin-top: 40px;
+    transform: rotate(-4deg);
+    box-shadow: 8px 8px 0 var(--secondary);
+}
+.alt-header {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+}
+.alt-text {
+    font-size: 13px;
+    line-height: 1.3;
+    margin: 0;
 }

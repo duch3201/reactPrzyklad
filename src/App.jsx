@@ -24,6 +24,12 @@ export default function App() {
         <>
             <h1 id="heading">strona dla programistów</h1>
             {/* <p>this is a font test</p> */}
+            <div class="under-construction-alt">
+                <h3 class="alt-header">Coming Soon!</h3>
+                <p class="alt-text">
+                    Pracujemy nad tym. Sprawdź ponownie wkrótce.
+                </p>
+            </div>
             <hr />
             <section id="section1">
                 <span><h2>ReactJS</h2></span>
