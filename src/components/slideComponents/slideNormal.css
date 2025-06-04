@@ -1,0 +1,25 @@
+#normalSlide {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100dvh;
+}
+
+#normalSlideSidebar {
+    max-width: 45%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#normalSlideSidebar section {
+    display: flex;
+    flex: 1 !important;
+}
+
+#liveExample {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 55%;
+}

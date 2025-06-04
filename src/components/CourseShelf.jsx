@@ -6,7 +6,7 @@ export default function CourseShelf({coursesData}) {
     return (
         <div id="CourseShelf">
             {coursesData.map((course, index) => {
-                return <CourseBox key={index} title={course.title} desc={course.description} tags={course.tags} />
+                return <CourseBox key={index} title={course.title} desc={course.description} tags={course.tags} courseId={course.courseId} />
             })}
         </div>
     )

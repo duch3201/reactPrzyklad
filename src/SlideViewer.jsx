@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useSearchParams } from "react-router";
-import Editor from '@monaco-editor/react';
 import SlideRenderer from './components/SlideRenderer'
 import './SlideViewer.css';
 import ErrorBoundary from './ErrorBoundary';
@@ -157,7 +156,10 @@ function App() {
   return (
     <div className="">
       <header>
-        <h2>Course Name</h2>
+        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+          <NavLink to="/" style={{marginRight: '15px'}}>{`<-`}</NavLink>
+          <h2>{courseMetadata.title}</h2>
+        </div>
         <div id="slidesSwitcher">
           <ol type="1">
             {courseMetadata.slides?.map(slide => {

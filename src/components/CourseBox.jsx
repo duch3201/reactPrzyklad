@@ -1,7 +1,8 @@
+import { NavLink } from "react-router";
 import './CourseBox.css'
 
-export default function CourseBox({title, desc, tags}) {
-
+export default function CourseBox({title, desc, tags, courseId}) {
+//http://192.168.0.22:5173/course?courseId=react-stage-1&slide=1
     return (
         <div id="CourseBox">
             <div>
@@ -14,7 +15,7 @@ export default function CourseBox({title, desc, tags}) {
                        return <p key={index}>{tag}</p>
                     })}
                 </div>
-                <button><p>start</p></button>
+                <NavLink to={`/course?courseId=${courseId}&slide=0`}><p>start</p></NavLink>
             </div>
         </div>
     )

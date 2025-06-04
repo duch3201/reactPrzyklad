@@ -2,63 +2,56 @@
   {
     "id":"0",
     "title":"wstęp do hooków",
-    "explanation":"TODO: napisz to",
+    "explanation":"**React Hooks to sposób na korzystanie z funkcji Reacta, takich jak stan (state) czy efekty uboczne (side effects), w komponentach funkcyjnych** – czyli takich, które są napisane jako funkcje, a nie klasy\nZamiast pisać długie komponenty klasowe, możesz teraz używać prostych funkcji, a dzięki Hookom nadal masz dostęp do wszystkich potrzebnych możliwości Reacta. Hooks \"podpinają się\" do systemu Reacta i pozwalają twojej funkcji pamiętać dane, reagować na zmiany, czy wykonywać działania w odpowiednim momencie cyklu życia komponentu.<br>**Każdy Hook zaczyna się od słowa `use`**, co oznacza, że korzystasz z jakiejś funkcji Reacta, która dodaje do twojego komponentu specjalne możliwości. Nie działają one poza komponentami – muszą być wywoływane w głównym ciele komponentu, zawsze w tej samej kolejności.<br>Dzięki Hookom kod jest prostszy, krótszy i łatwiejszy do zarządzania, szczególnie w większych aplikacjach.",
     "code":"",
-    "doesContainComponent":false,
-    "isTextAndCodeOnlySlide":"true"
+    "slideType":"Text"
   },
   {
     "id": "1",
-    "title": "Licznik (useState)",
+    "title": "Licznik",
     "explanation": "Hook useState pozwala przechowywać dane w stanie komponentu. W tradycyjnym programowaniu webowym, musielibyśmy ręcznie modyfikować stronę przez manipulację DOM. W React, stan działa jak magiczna zmienna - gdy zmienisz jej wartość używając funkcji setCount, React automatycznie aktualizuje wszystkie miejsca na stronie, gdzie ta wartość jest używana. Nie musisz ręcznie szukać elementów ani odświeżać strony.",
     "code": "import React, { useState } from 'react';\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <button onClick={() => setCount(count + 1)}>\n      Kliknij mnie: {count}\n    </button>\n  );\n}\n\nexport default Counter;",
     "liveComponent": "({count, setCount}) => { return (<div className=\"example\"><button onClick={() => setCount(count + 1)} className=\"big-btn\">Kliknij mnie: {count}</button></div>); }",
-    "doesContainComponent":true,
-    "isTextAndCodeOnlySlide":"false"
+    "slideType":"TextAndCodeOnly"
   },
   {
     "id": "2",
-    "title": "Kontrolowany formularz (useState)",
+    "title": "Kontrolowany formularz",
     "explanation": "W tradycyjnym HTML, pola formularza zarządzają swoim stanem samodzielnie. W React używamy tzw. 'kontrolowanych komponentów', gdzie to React przejmuje kontrolę nad wartością pola. Za każdym razem, gdy użytkownik coś wpisuje, uruchamiana jest funkcja onChange, która aktualizuje stan w React. Dzięki temu mamy pełny dostęp do tego, co użytkownik wpisuje, w czasie rzeczywistym i możemy natychmiast reagować na te zmiany (np. weryfikować dane, filtrować niepożądane znaki lub aktualizować inne części interfejsu).",
-    "code": "import React, { useState } from 'react';\n\nfunction ControlledInput() {\n  const [text, setText] = useState('');\n\n  return (\n    <>\n      <input value={text} onChange={e => setText(e.target.value)} />\n      <p>Wpisałeś: {text}</p>\n    </>\n  );\n}\n\nexport default ControlledInput;",
+    "code": "import React, { useState } from 'react';\n\nfunction ControlledInput() {\n  const [text, setText] = useState('');\n\n  return (\n    <>\n      <input value={text} onChange={e => setText(e.target.value)} />\n      <p>Wpisałeś: {text}</p>\n    </br>\n  );\n}\n\nexport default ControlledInput;",
     "liveComponent": "({text, setText}) => { return (<div className=\"example\"><input type=\"text\" value={text} onChange={(e) => setText(e.target.value)} placeholder=\"Wpisz coś...\" /><p>Wpisałeś: {text}</p></div>); }",
-    "doesContainComponent":true,
-    "isTextAndCodeOnlySlide":"false"
+    "slideType":"normal"
   },
   {
     "id": "3",
-    "title": "Dynamiczna lista (useState + renderowanie listy)",
+    "title": "Dynamiczna lista",
     "explanation": "W React, tworzenie dynamicznych list jest intuicyjne. Zamiast ręcznie tworzyć elementy HTML (jak w czystym JavaScript, gdzie używalibyśmy pętli i document.createElement), wykorzystujemy metodę map() do przekształcenia tablicy danych w elementy interfejsu. Za każdym razem, gdy dodajemy nowy element do stanu, React inteligentnie aktualizuje DOM, dodając tylko nowe elementy, bez niepotrzebnego przeładowywania całej listy. Atrybut 'key' pomaga Reactowi śledzić, które elementy się zmieniły, zostały dodane lub usunięte.",
     "code": "import React, { useState } from 'react';\n\nfunction DynamicList() {\n  const [items, setItems] = useState([]);\n  const [input, setInput] = useState('');\n\n  const addItem = () => {\n    if (input.trim()) {\n      setItems([...items, input]);\n      setInput('');\n    }\n  };\n\n  return (\n    <>\n      <input value={input} onChange={(e) => setInput(e.target.value)} />\n      <button onClick={addItem}>Dodaj</button>\n      <ul>\n        {items.map((item, i) => <li key={i}>{item}</li>)}\n      </ul>\n    </>\n  );\n}\n\nexport default DynamicList;",
     "liveComponent": "({items, input, setItems, setInput}) => { return (<div className=\"example\"><input value={input} onChange={(e) => setInput(e.target.value)} placeholder=\"Nowy element\" /><button onClick={() => {if (input.trim()) {setItems([...items, input]);setInput('');}}}>Dodaj</button><ul>{items.map((item, i) => (<li key={i}>{item}</li>))}</ul></div>); }",
-    "doesContainComponent":true,
-    "isTextAndCodeOnlySlide":"false"
+    "slideType":"normal"
   },
   {
     "id": "4",
-    "title": "Efekty uboczne (useEffect)",
+    "title": "Efekty uboczne",
     "explanation": "useEffect to hook, który pozwala na wykonywanie działań pobocznych (tzw. 'side effects') w komponencie. W tradycyjnym JavaScript musielibyśmy używać różnych metod, aby wykonywać operacje po załadowaniu strony. useEffect działa jak automatyczny asystent, który może wykonać kod po renderowaniu komponentu lub gdy zmienią się określone dane. W tym przykładzie tworzymy licznik sekund - funkcja w useEffect tworzy timer, który co sekundę zwiększa licznik. Pusta tablica [] jako drugi argument oznacza, że efekt uruchomi się tylko raz po pierwszym wyświetleniu komponentu. Funkcja zwracana przez useEffect (czyszcząca) zatrzymuje timer, gdy komponent znika ze strony, co zapobiega wyciekom pamięci i błędom.",
     "code": "import React, { useState, useEffect } from 'react';\n\nfunction Timer() {\n  const [count, setCount] = useState(0);\n\n  useEffect(() => {\n    const interval = setInterval(() => {\n      setCount(c => c + 1);\n    }, 1000);\n    return () => clearInterval(interval);\n  }, []);\n\n  return <p>Sekundy: {count}</p>;\n}\n\nexport default Timer;",
     "liveComponent": "({count, setCount}) => { React.useEffect(() => {const interval = setInterval(() => {setCount(c => c + 1);}, 1000);return () => clearInterval(interval);}, [setCount]); return (<p className=\"example\">Sekundy: {count}</p>); }",
-    "doesContainComponent":true,
-    "isTextAndCodeOnlySlide":"false"
+    "slideType":"normal"
   },
   {
     "id": "5",
-    "title": "Referencje (useRef)",
+    "title": "Referencje",
     "explanation": "useRef pozwala na bezpośredni dostęp do elementów HTML w React. W tradycyjnym JavaScript używalibyśmy document.getElementById() lub innych selektorów. W React tworzymy 'referencję' za pomocą useRef() i przypisujemy ją do elementu poprzez atrybut ref. Jest to jak przypięcie niewidocznej etykiety do elementu, dzięki której możemy go później znaleźć. W tym przykładzie, po kliknięciu przycisku, React automatycznie przeniesie fokus na pole tekstowe, bez potrzeby szukania go po ID czy klasie. Dodatkowo, useRef może przechowywać dowolne wartości, które nie znikną między renderowaniami, ale ich zmiana nie spowoduje ponownego renderowania (w przeciwieństwie do useState).",
     "code": "import React, { useRef } from 'react';\n\nfunction FocusInput() {\n  const inputRef = useRef();\n\n  return (\n    <>\n      <input ref={inputRef} placeholder=\"Kliknij przycisk aby uzyskać fokus\" />\n      <button onClick={() => inputRef.current.focus()}>Fokus</button>\n    </>\n  );\n}\n\nexport default FocusInput;",
     "liveComponent": "() => { const inputRef = React.useRef(); return (<div className=\"example\"><input ref={inputRef} placeholder=\"Kliknij przycisk aby uzyskać fokus\" /><button onClick={() => inputRef.current.focus()}>Fokus</button></div>); }",
-    "doesContainComponent":true,
-    "isTextAndCodeOnlySlide":"false"
+    "slideType":"normal"
   },
   {
     "id": "6",
-    "title": "Optymalizacja (useMemo)",
+    "title": "Optymalizacja",
     "explanation": "useMemo to hook służący do optymalizacji wydajności aplikacji React. Wyobraź sobie, że twój komponent wykonuje skomplikowane obliczenia (jak w tym przykładzie - obliczanie silni). Bez useMemo, React wykonywałby te obliczenia przy każdym renderowaniu komponentu, nawet jeśli dane wejściowe się nie zmieniły. Jest to jak rozwiązywanie tego samego zadania matematycznego wielokrotnie, mimo że znamy już odpowiedź. useMemo działa jak notatnik - zapisuje wynik obliczenia i używa go ponownie, dopóki dane wejściowe (zależności podane w tablicy [number]) się nie zmienią. Dzięki temu aplikacja działa szybciej i płynniej, szczególnie przy złożonych obliczeniach.",
     "code": "import React, { useState, useMemo } from 'react';\n\nfunction Factorial() {\n  const [number, setNumber] = useState(0);\n\n  const factorial = useMemo(() => {\n    const calc = (n) => (n <= 1 ? 1 : n * calc(n - 1));\n    return calc(number);\n  }, [number]);\n\n  return (\n    <>\n      <input type=\"number\" value={number} onChange={(e) => setNumber(Number(e.target.value))} />\n      <p>Silnia: {factorial}</p>\n    </>\n  );\n}\n\nexport default Factorial;",
     "liveComponent": "() => { const [number, setNumber] = React.useState(0); const factorial = React.useMemo(() => { let result = 1; for (let i = 2; i <= number; i++) { result *= i; } return result; }, [number]); return (<div className=\"example\"><input type=\"number\" value={number} onChange={(e) => setNumber(Number(e.target.value))} /><p>Silnia: {factorial}</p></div>); }",
-    "doesContainComponent":true,
-    "isTextAndCodeOnlySlide":"false"
+    "slideType":"normal"
   }
 ]
